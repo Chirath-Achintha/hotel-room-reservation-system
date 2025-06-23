@@ -1,0 +1,4 @@
+1,1,200.00,true,STANDARD,2,true
+2,02,3000.00,true,DELUXE,true,false
+3,3,150.00,true,STANDARD,3,true
+4,04,500.00,true,DELUXE,true,true

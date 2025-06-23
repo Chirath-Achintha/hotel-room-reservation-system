@@ -1,0 +1,3 @@
+2,Amare,amare123,amare@gmail.com,REGULAR,false
+3,Dulina,Dulina123,dulina@gmail.com,REGULAR,false
+4,Januda,januda123,januda@gmail.com,REGULAR,false
