@@ -61,14 +61,26 @@ public abstract class Room {
         boolean available = Boolean.parseBoolean(parts[3]);
         String type = parts[4];
 
-        if ("DELUXE".equals(type)) {
-            boolean hasJacuzzi = Boolean.parseBoolean(parts[5]);
-            boolean hasMinibar = Boolean.parseBoolean(parts[6]);
-            return new DeluxeRoom(id, number, price, available, hasJacuzzi, hasMinibar);
-        } else {
-            int beds = Integer.parseInt(parts[5]);
-            boolean hasBalcony = Boolean.parseBoolean(parts[6]);
-            return new StandardRoom(id, number, price, available, beds, hasBalcony);
+        switch (type) {
+            case "DELUXE":
+                boolean hasJacuzzi = Boolean.parseBoolean(parts[5]);
+                boolean hasMinibar = Boolean.parseBoolean(parts[6]);
+                return new DeluxeRoom(id, number, price, available, hasJacuzzi, hasMinibar);
+            case "EXECUTIVE":
+                boolean hasSeparateLivingRoom = Boolean.parseBoolean(parts[5]);
+                boolean hasWorkspace = Boolean.parseBoolean(parts[6]);
+                boolean hasKitchenette = Boolean.parseBoolean(parts[7]);
+                return new ExecutiveSuite(id, number, price, available, hasSeparateLivingRoom, hasWorkspace, hasKitchenette);
+            case "PRESIDENTIAL":
+                boolean hasPrivatePool = Boolean.parseBoolean(parts[5]);
+                boolean hasButlerService = Boolean.parseBoolean(parts[6]);
+                boolean hasPanoramicView = Boolean.parseBoolean(parts[7]);
+                boolean hasPrivateDining = Boolean.parseBoolean(parts[8]);
+                return new PresidentialSuite(id, number, price, available, hasPrivatePool, hasButlerService, hasPanoramicView, hasPrivateDining);
+            default: // STANDARD
+                int beds = Integer.parseInt(parts[5]);
+                boolean hasBalcony = Boolean.parseBoolean(parts[6]);
+                return new StandardRoom(id, number, price, available, beds, hasBalcony);
         }
     }
 

@@ -5,15 +5,99 @@
 <head>
     <title>Book List</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; }
-        tr:nth-child(even) { background-color: #f9f9f9; }
-        .btn { padding: 5px 10px; text-decoration: none; color: white; border-radius: 3px; }
-        .btn-add { background: #4CAF50; margin-bottom: 15px; display: inline-block; padding: 8px 15px; }
-        .btn-edit { background: #2196F3; }
-        .btn-delete { background: #f44336; }
+        body {
+            min-height: 100vh;
+            background: linear-gradient(120deg, #fbc2eb 0%, #a6c1ee 100%);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            animation: fadeInBg 1.2s ease;
+        }
+        @keyframes fadeInBg {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        h1 {
+            text-align: center;
+            color: #764ba2;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+        }
+        .btn-add {
+            background: linear-gradient(90deg, #43cea2 0%, #185a9d 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
+            margin-bottom: 15px;
+            display: inline-block;
+            padding: 8px 15px;
+        }
+        .btn-add:hover {
+            filter: brightness(1.1);
+            transform: scale(1.07);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255,255,255,0.95);
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+            overflow: hidden;
+            animation: tableFadeIn 1s;
+        }
+        @keyframes tableFadeIn {
+            from { opacity: 0; transform: scale(0.97); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 14px 18px;
+            text-align: left;
+        }
+        th {
+            background: linear-gradient(90deg, #fbc2eb 0%, #a6c1ee 100%);
+            color: #fff;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            border: none;
+        }
+        tr {
+            transition: background 0.3s, transform 0.2s;
+        }
+        tr:hover {
+            background: #e0c3fc;
+            transform: scale(1.01);
+        }
+        .btn-edit {
+            background: linear-gradient(90deg, #66a6ff 0%, #89f7fe 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
+        }
+        .btn-edit:hover {
+            filter: brightness(1.1);
+            transform: scale(1.07);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+        }
+        .btn-cancel {
+            background: linear-gradient(90deg, #ff5858 0%, #f09819 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
+        }
+        .btn-cancel:hover {
+            filter: brightness(1.1);
+            transform: scale(1.07);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+        }
     </style>
 </head>
 <body>

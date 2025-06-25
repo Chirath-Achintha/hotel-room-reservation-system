@@ -3,271 +3,146 @@
 <jsp:include page="../fragments/header.jsp"/>
 
 <style>
-    :root {
-        --primary-color: #2c3e50;
-        --secondary-color: #3498db;
-        --accent-color: #e74c3c;
-        --premium-color: #f39c12;
-        --admin-color: #9b59b6;
+    body {
+        background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+        font-family: 'Segoe UI', Arial, sans-serif;
+        animation: fadeInBg 1.2s ease;
     }
-
-    .edit-profile-container {
-        animation: fadeInUp 0.6s ease-out;
+    @keyframes fadeInBg {
+        from { opacity: 0; }
+        to { opacity: 1; }
     }
-
-    @keyframes fadeInUp {
-        from { opacity: 0; transform: translateY(30px); }
-        to { opacity: 1; transform: translateY(0); }
+    .container {
+        animation: slideIn 1s cubic-bezier(.68,-0.55,.27,1.55);
     }
-
-    .profile-edit-card {
-        border: none;
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        transition: all 0.3s ease;
-        background: rgba(255,255,255,0.95);
-        backdrop-filter: blur(5px);
+    @keyframes slideIn {
+        from { transform: translateY(40px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
     }
-
-    .profile-edit-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    .card {
+        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        border-radius: 18px;
+        transition: transform 0.3s, box-shadow 0.3s;
+        background: #fff;
+        margin-bottom: 24px;
+        opacity: 0;
+        animation: cardFadeIn 0.8s forwards;
     }
-
+    .card:hover {
+        transform: scale(1.02) translateY(-2px);
+        box-shadow: 0 16px 32px rgba(0,0,0,0.12);
+    }
+    @keyframes cardFadeIn {
+        to { opacity: 1; }
+    }
     .card-header {
-        background: linear-gradient(135deg, var(--primary-color), #34495e) !important;
-        position: relative;
-        overflow: hidden;
-        border-radius: 12px 12px 0 0 !important;
+        border-radius: 18px 18px 0 0;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        font-size: 1.2rem;
+        background: linear-gradient(90deg, #667eea 0%, #764ba2 100%) !important;
+        color: #fff !important;
     }
-
-    .card-header::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 3px;
-        background: linear-gradient(90deg, rgba(255,255,255,0.3), transparent);
-        animation: shimmer 2s infinite linear;
+    .form-label {
+        color: #4a5568;
+        font-weight: 500;
     }
-
-    @keyframes shimmer {
-        0% { transform: translateX(-100%); }
-        100% { transform: translateX(100%); }
-    }
-
-    .card-header h3 {
-        position: relative;
-        padding-bottom: 10px;
-    }
-
-    .card-header h3::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 50px;
-        height: 3px;
-        background: rgba(255,255,255,0.5);
-        border-radius: 2px;
-    }
-
     .form-control {
         border-radius: 8px;
-        padding: 12px 15px;
-        border: 1px solid #ced4da;
-        transition: all 0.3s ease;
-        background: rgba(255,255,255,0.9);
+        border: 1px solid #b3c6e0;
+        transition: border 0.3s, box-shadow 0.3s;
     }
-
     .form-control:focus {
-        border-color: var(--secondary-color);
-        box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
-        transform: translateY(-2px);
+        border-color: #667eea;
+        box-shadow: 0 0 0 2px #a1c4fd55;
     }
-
-    .form-label {
-        font-weight: 500;
-        margin-bottom: 0.5rem;
-        transition: all 0.3s ease;
-    }
-
-    .form-group:hover .form-label {
-        color: var(--secondary-color);
-    }
-
-    .alert-danger {
-        background-color: rgba(231, 76, 60, 0.1);
-        border-color: rgba(231, 76, 60, 0.3);
-        color: var(--accent-color);
-        border-radius: 8px;
-        animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
-        transform: translate3d(0, 0, 0);
-        backface-visibility: hidden;
-        perspective: 1000px;
-    }
-
-    @keyframes shake {
-        10%, 90% { transform: translate3d(-1px, 0, 0); }
-        20%, 80% { transform: translate3d(2px, 0, 0); }
-        30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
-        40%, 60% { transform: translate3d(4px, 0, 0); }
-    }
-
     .btn {
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-        border: none;
-        font-weight: 500;
-        letter-spacing: 0.5px;
-        padding: 0.75rem 1.5rem;
+        transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
         border-radius: 8px;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.07);
     }
-
-    .btn::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-        transition: all 0.6s ease;
-    }
-
-    .btn:hover::after {
-        left: 100%;
-    }
-
     .btn-primary {
-        background: linear-gradient(135deg, var(--secondary-color), #2980b9);
-        box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        border: none;
     }
-
     .btn-primary:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
+        filter: brightness(1.1);
+        transform: scale(1.07);
+        box-shadow: 0 4px 16px rgba(0,0,0,0.13);
     }
-
     .btn-secondary {
-        background: linear-gradient(135deg, #95a5a6, #7f8c8d);
-        box-shadow: 0 4px 15px rgba(149, 165, 166, 0.3);
+        background: #b3c6e0;
+        color: #333;
+        border: none;
     }
-
     .btn-secondary:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 25px rgba(149, 165, 166, 0.4);
+        background: #a1c4fd;
+        color: #222;
     }
-
-    .form-check-input {
-        width: 1.2em;
-        height: 1.2em;
-        margin-top: 0.2em;
-        transition: all 0.3s ease;
-    }
-
-    .form-check-input:checked {
-        background-color: var(--premium-color);
-        border-color: var(--premium-color);
-    }
-
-    .form-check-input:focus {
-        box-shadow: 0 0 0 0.25rem rgba(243, 156, 18, 0.25);
-    }
-
-    .form-check-label {
-        margin-left: 0.5rem;
-        transition: all 0.3s ease;
-    }
-
-    .form-check:hover .form-check-label {
-        color: var(--premium-color);
-    }
-
-    .admin-level-field {
-        background: rgba(155, 89, 182, 0.1);
-        border-left: 3px solid var(--admin-color);
-        padding: 1rem;
-        border-radius: 0 8px 8px 0;
-        margin-top: 1rem;
-    }
-
-    .premium-field {
-        background: rgba(243, 156, 18, 0.1);
-        border-left: 3px solid var(--premium-color);
-        padding: 1rem;
-        border-radius: 0 8px 8px 0;
-        margin-top: 1rem;
+    h3 {
+        color: #333;
+        letter-spacing: 0.5px;
     }
 </style>
 
-<div class="container mt-5 edit-profile-container">
+<div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-6">
-            <div class="card profile-edit-card">
+        <div class="col-md-8">
+            <div class="card">
                 <div class="card-header bg-primary text-white">
-                    <h3 class="mb-0"><i class="fas fa-user-edit me-2"></i>Edit Profile</h3>
+                    <h3 class="mb-0">Edit Profile</h3>
                 </div>
                 <div class="card-body">
                     <c:if test="${not empty error}">
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <i class="fas fa-exclamation-circle me-2"></i>${error}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <div class="alert alert-danger" role="alert">
+                            ${error}
                         </div>
                     </c:if>
-
+                    
                     <form action="${pageContext.request.contextPath}/user/update" method="post">
                         <!-- Hidden fields to preserve user data -->
                         <input type="hidden" name="id" value="${user.id}"/>
                         <input type="hidden" name="className" value="${user['class'].name}"/>
-
-                        <div class="mb-4 form-group">
-                            <label for="username" class="form-label"><i class="fas fa-user me-2"></i>Username</label>
+                        
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
                             <input type="text" class="form-control" id="username" name="username" value="${user.username}" required>
                         </div>
-
-                        <div class="mb-4 form-group">
-                            <label for="email" class="form-label"><i class="fas fa-envelope me-2"></i>Email</label>
+                        
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
                             <input type="email" class="form-control" id="email" name="email" value="${user.email}" required>
                         </div>
-
-                        <div class="mb-4 form-group">
-                            <label for="newPassword" class="form-label"><i class="fas fa-lock me-2"></i>New Password (leave blank to keep current)</label>
+                        
+                        <div class="mb-3">
+                            <label for="newPassword" class="form-label">New Password (leave blank to keep current)</label>
                             <input type="password" class="form-control" id="newPassword" name="newPassword">
-                            <small class="text-muted">Minimum 8 characters with mix of letters and numbers</small>
                         </div>
-
+                        
                         <c:if test="${user['class'].simpleName == 'AdminUser'}">
-                            <div class="mb-4 admin-level-field">
-                                <label for="adminLevel" class="form-label"><i class="fas fa-shield-alt me-2"></i>Admin Level</label>
+                            <div class="mb-3">
+                                <label for="adminLevel" class="form-label">Admin Level</label>
                                 <input type="text" class="form-control" id="adminLevel" name="adminLevel" value="${user.adminLevel}">
                                 <input type="hidden" name="premium" value="false"/>
                             </div>
                         </c:if>
-
+                        
                         <c:if test="${user['class'].simpleName == 'RegularUser'}">
-                            <div class="mb-4 premium-field">
-                                <label class="form-label"><i class="fas fa-crown me-2"></i>Premium Status</label>
+                            <div class="mb-3">
+                                <label class="form-label">Premium Status</label>
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input" id="premium" name="premium" value="true" ${user.premium ? 'checked' : ''}>
                                     <input type="hidden" name="premium" value="false"/>
                                     <input type="hidden" name="adminLevel" value=""/>
-                                    <label class="form-check-label" for="premium">Upgrade to Premium Account</label>
+                                    <label class="form-check-label" for="premium">Premium Account</label>
                                 </div>
-                                <small class="text-muted">Enjoy exclusive benefits with premium membership</small>
                             </div>
                         </c:if>
-
-                        <div class="d-flex justify-content-between mt-4">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-save me-2"></i>Save Changes
-                            </button>
-                            <a href="${pageContext.request.contextPath}/user/profile" class="btn btn-secondary">
-                                <i class="fas fa-times me-2"></i>Cancel
-                            </a>
+                        
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                            <a href="${pageContext.request.contextPath}/user/profile" class="btn btn-secondary">Cancel</a>
                         </div>
                     </form>
                 </div>
@@ -276,42 +151,4 @@
     </div>
 </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Form input animations
-        const inputs = document.querySelectorAll('.form-control');
-        inputs.forEach((input, index) => {
-            input.style.opacity = '0';
-            input.style.transform = 'translateY(10px)';
-            input.style.transition = `all 0.5s ease ${index * 0.1}s`;
-
-            setTimeout(() => {
-                input.style.opacity = '1';
-                input.style.transform = 'translateY(0)';
-            }, 100);
-        });
-
-        // Button hover effects
-        const buttons = document.querySelectorAll('.btn');
-        buttons.forEach(button => {
-            button.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-3px)';
-            });
-            button.addEventListener('mouseleave', function() {
-                if (!this.classList.contains('active')) {
-                    this.style.transform = 'translateY(0)';
-                }
-            });
-        });
-
-        // Password strength indicator
-        const passwordField = document.getElementById('newPassword');
-        if (passwordField) {
-            passwordField.addEventListener('input', function() {
-                // Add password strength logic if needed
-            });
-        }
-    });
-</script>
-
-<jsp:include page="../fragments/footer.jsp"/>
+<jsp:include page="../fragments/footer.jsp"/> 

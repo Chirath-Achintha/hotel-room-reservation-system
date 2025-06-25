@@ -8,232 +8,83 @@
     <title>Room Reservation System</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --accent-color: #e74c3c;
-            --text-light: #ecf0f1;
-            --text-dark: #2c3e50;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa;
+            background: linear-gradient(120deg, #fbc2eb 0%, #a6c1ee 100%);
+            font-family: 'Segoe UI', Arial, sans-serif;
         }
-
         .navbar {
-            background: linear-gradient(135deg, var(--primary-color), #34495e) !important;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            padding: 0.8rem 1rem;
-            transition: all 0.3s ease;
+            background: linear-gradient(90deg, #2c3e50 0%, #3498db 100%) !important;
+            box-shadow: 0 2px 8px rgba(44,62,80,0.08);
+            border-radius: 0 0 18px 18px;
+            animation: navFadeIn 1s cubic-bezier(.68,-0.55,.27,1.55);
         }
-
-        .navbar.scrolled {
-            padding: 0.5rem 1rem;
-            box-shadow: 0 4px 30px rgba(0,0,0,0.15);
-        }
-
-        .navbar-brand {
-            font-weight: 700;
-            font-size: 1.5rem;
-            letter-spacing: 0.5px;
-            color: var(--text-light) !important;
-            position: relative;
-            transition: all 0.3s ease;
-        }
-
-        .navbar-brand::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--secondary-color);
-            transition: all 0.3s ease;
-        }
-
-        .navbar-brand:hover::after {
-            width: 100%;
-        }
-
-        .navbar-brand:hover {
-            transform: translateY(-2px);
-        }
-
-        .nav-link {
-            color: rgba(255,255,255,0.85) !important;
-            font-weight: 500;
-            padding: 0.5rem 1rem !important;
-            margin: 0 0.2rem;
-            position: relative;
-            transition: all 0.3s ease;
-        }
-
-        .nav-link::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 2px;
-            background: var(--secondary-color);
-            transition: all 0.3s ease;
-        }
-
-        .nav-link:hover::before {
-            width: calc(100% - 2rem);
-        }
-
-        .nav-link:hover {
-            color: white !important;
-            transform: translateY(-2px);
-        }
-
-        .nav-link.active {
-            color: white !important;
-            font-weight: 600;
-        }
-
-        .nav-link.active::before {
-            width: calc(100% - 2rem);
-            background: var(--accent-color);
-        }
-
-        .navbar-toggler {
-            border: none;
-            padding: 0.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .navbar-toggler:focus {
-            box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
-        }
-
-        .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.85%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-            transition: all 0.3s ease;
-        }
-
-        .navbar-toggler:hover .navbar-toggler-icon {
-            transform: rotate(90deg);
-        }
-
-        main {
-            animation: fadeIn 0.6s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+        @keyframes navFadeIn {
+            from { opacity: 0; transform: translateY(-30px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
-        /* Dropdown animations */
-        .dropdown-menu {
-            animation: fadeInDown 0.3s ease-out;
-            border: none;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border-radius: 8px;
-            overflow: hidden;
+        .navbar-brand {
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #fff !important;
+            text-shadow: 0 2px 8px rgba(44,62,80,0.08);
         }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .nav-link {
+            color: #fff !important;
+            font-weight: 500;
+            margin-right: 8px;
+            transition: color 0.2s, transform 0.2s;
         }
-
-        .dropdown-item {
-            transition: all 0.2s ease;
-            padding: 0.5rem 1.5rem;
+        .nav-link:hover, .nav-link.active {
+            color: #fbc2eb !important;
+            transform: scale(1.08);
+            text-decoration: underline;
         }
-
-        .dropdown-item:hover {
-            background-color: var(--secondary-color);
-            color: white !important;
-            transform: translateX(5px);
+        main.container {
+            margin-top: 2rem;
+            animation: fadeInMain 1.2s;
+        }
+        @keyframes fadeInMain {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-    <div class="container">
-        <a class="navbar-brand" href="${pageContext.request.contextPath}/">
-            <i class="fas fa-hotel me-2"></i>Room Reservation
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link ${pageContext.request.requestURI.endsWith('/room/catalog') ? 'active' : ''}" href="${pageContext.request.contextPath}/room/catalog">
-                        <i class="fas fa-bed me-1"></i>Rooms
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link ${pageContext.request.requestURI.endsWith('/booking/list') ? 'active' : ''}" href="${pageContext.request.contextPath}/booking/list">
-                        <i class="fas fa-calendar-check me-1"></i>Bookings
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link ${pageContext.request.requestURI.endsWith('/review/list') ? 'active' : ''}" href="${pageContext.request.contextPath}/review/list">
-                        <i class="fas fa-star me-1"></i>Reviews
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link ${pageContext.request.requestURI.endsWith('/feedback') ? 'active' : ''}" href="${pageContext.request.contextPath}/feedback">
-                        <i class="fas fa-comment-dots me-1"></i>Feedback
-                    </a>
-                </li>
-            </ul>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/">Room Reservation</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/room/catalog">Rooms</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/booking/list">Bookings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/review/list">Reviews</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/feedback">Feedback</a>
+                    </li>
+                    <c:if test="${sessionScope.user['class'].simpleName == 'AdminUser'}">
+                        <li class="nav-item">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/admin/dashboard">Admin Panel</a>
+                        </li>
+                    </c:if>
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
-<main class="container mt-5 pt-4">
-    <!-- Your page content will go here -->
-</main>
+    <main class="container mt-4">
+        <!-- Your page content will go here -->
+    </main>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Navbar scroll effect
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 50) {
-                document.querySelector('.navbar').classList.add('scrolled');
-            } else {
-                document.querySelector('.navbar').classList.remove('scrolled');
-            }
-        });
-
-        // Add active class based on current page
-        const navLinks = document.querySelectorAll('.nav-link');
-        navLinks.forEach(link => {
-            if (link.href === window.location.href) {
-                link.classList.add('active');
-            }
-        });
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-    });
-</script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

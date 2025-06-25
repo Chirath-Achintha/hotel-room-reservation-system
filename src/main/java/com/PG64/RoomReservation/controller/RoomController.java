@@ -58,6 +58,13 @@ public class RoomController {
             @RequestParam(required = false) Boolean hasBalcony,
             @RequestParam(required = false) Boolean hasJacuzzi,
             @RequestParam(required = false) Boolean hasMinibar,
+            @RequestParam(required = false) Boolean hasSeparateLivingRoom,
+            @RequestParam(required = false) Boolean hasWorkspace,
+            @RequestParam(required = false) Boolean hasKitchenette,
+            @RequestParam(required = false) Boolean hasPrivatePool,
+            @RequestParam(required = false) Boolean hasButlerService,
+            @RequestParam(required = false) Boolean hasPanoramicView,
+            @RequestParam(required = false) Boolean hasPrivateDining,
             HttpSession session,
             Model model) {
 
@@ -69,24 +76,49 @@ public class RoomController {
         Room newRoom;
         int roomId = roomService.generateRoomId();
 
-        if ("DELUXE".equals(roomType)) {
-            newRoom = new DeluxeRoom(
-                    roomId,
-                    roomNumber,
-                    price,
-                    true,
-                    hasJacuzzi != null && hasJacuzzi,
-                    hasMinibar != null && hasMinibar
-            );
-        } else {
-            newRoom = new StandardRoom(
-                    roomId,
-                    roomNumber,
-                    price,
-                    true,
-                    numberOfBeds != null ? numberOfBeds : 1,
-                    hasBalcony != null && hasBalcony
-            );
+        switch (roomType) {
+            case "DELUXE":
+                newRoom = new DeluxeRoom(
+                        roomId,
+                        roomNumber,
+                        price,
+                        true,
+                        hasJacuzzi != null && hasJacuzzi,
+                        hasMinibar != null && hasMinibar
+                );
+                break;
+            case "EXECUTIVE":
+                newRoom = new ExecutiveSuite(
+                        roomId,
+                        roomNumber,
+                        price,
+                        true,
+                        hasSeparateLivingRoom != null && hasSeparateLivingRoom,
+                        hasWorkspace != null && hasWorkspace,
+                        hasKitchenette != null && hasKitchenette
+                );
+                break;
+            case "PRESIDENTIAL":
+                newRoom = new PresidentialSuite(
+                        roomId,
+                        roomNumber,
+                        price,
+                        true,
+                        hasPrivatePool != null && hasPrivatePool,
+                        hasButlerService != null && hasButlerService,
+                        hasPanoramicView != null && hasPanoramicView,
+                        hasPrivateDining != null && hasPrivateDining
+                );
+                break;
+            default: // STANDARD
+                newRoom = new StandardRoom(
+                        roomId,
+                        roomNumber,
+                        price,
+                        true,
+                        numberOfBeds != null ? numberOfBeds : 1,
+                        hasBalcony != null && hasBalcony
+                );
         }
 
         if (roomService.addRoom(newRoom)) {
@@ -167,31 +199,64 @@ public class RoomController {
             @RequestParam(required = false) Boolean hasBalcony,
             @RequestParam(required = false) Boolean hasJacuzzi,
             @RequestParam(required = false) Boolean hasMinibar,
+            @RequestParam(required = false) Boolean hasSeparateLivingRoom,
+            @RequestParam(required = false) Boolean hasWorkspace,
+            @RequestParam(required = false) Boolean hasKitchenette,
+            @RequestParam(required = false) Boolean hasPrivatePool,
+            @RequestParam(required = false) Boolean hasButlerService,
+            @RequestParam(required = false) Boolean hasPanoramicView,
+            @RequestParam(required = false) Boolean hasPrivateDining,
             HttpSession session,
             Model model) {
         User currentUser = (User) session.getAttribute("user");
         if (!(currentUser instanceof AdminUser)) {
             return "redirect:/auth/login";
         }
+
         Room updatedRoom;
-        if ("DELUXE".equals(roomType)) {
-            updatedRoom = new DeluxeRoom(
-                roomId,
-                roomNumber,
-                price,
-                available,
-                hasJacuzzi != null && hasJacuzzi,
-                hasMinibar != null && hasMinibar
-            );
-        } else {
-            updatedRoom = new StandardRoom(
-                roomId,
-                roomNumber,
-                price,
-                available,
-                numberOfBeds != null ? numberOfBeds : 1,
-                hasBalcony != null && hasBalcony
-            );
+        switch (roomType) {
+            case "DELUXE":
+                updatedRoom = new DeluxeRoom(
+                    roomId,
+                    roomNumber,
+                    price,
+                    available,
+                    hasJacuzzi != null && hasJacuzzi,
+                    hasMinibar != null && hasMinibar
+                );
+                break;
+            case "EXECUTIVE":
+                updatedRoom = new ExecutiveSuite(
+                    roomId,
+                    roomNumber,
+                    price,
+                    available,
+                    hasSeparateLivingRoom != null && hasSeparateLivingRoom,
+                    hasWorkspace != null && hasWorkspace,
+                    hasKitchenette != null && hasKitchenette
+                );
+                break;
+            case "PRESIDENTIAL":
+                updatedRoom = new PresidentialSuite(
+                    roomId,
+                    roomNumber,
+                    price,
+                    available,
+                    hasPrivatePool != null && hasPrivatePool,
+                    hasButlerService != null && hasButlerService,
+                    hasPanoramicView != null && hasPanoramicView,
+                    hasPrivateDining != null && hasPrivateDining
+                );
+                break;
+            default: // STANDARD
+                updatedRoom = new StandardRoom(
+                    roomId,
+                    roomNumber,
+                    price,
+                    available,
+                    numberOfBeds != null ? numberOfBeds : 1,
+                    hasBalcony != null && hasBalcony
+                );
         }
         roomService.updateRoom(updatedRoom);
         return "redirect:/room/manage";

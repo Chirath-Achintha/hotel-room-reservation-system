@@ -183,41 +183,72 @@
 </div>
 
 <style>
-.star-rating {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: flex-end;
-}
-
-.star-rating input {
-    display: none;
-}
-
-.star-rating label {
-    cursor: pointer;
-    font-size: 1.5rem;
-    color: #ddd;
-    padding: 0 0.1em;
-}
-
-.star-rating label:hover,
-.star-rating label:hover ~ label,
-.star-rating input:checked ~ label {
-    color: #ffc107;
-}
-
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-    padding: 1rem;
-}
-
-.testimonials .card {
-    transition: transform 0.3s ease;
-}
-
-.testimonials .card:hover {
-    transform: translateY(-5px);
-}
+    .testimonials {
+        background: linear-gradient(120deg, #fbc2eb 0%, #a6c1ee 100%);
+        border-radius: 24px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+        animation: fadeInBg 1.2s;
+    }
+    @keyframes fadeInBg {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    .testimonials .card {
+        border-radius: 18px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+        background: rgba(255,255,255,0.95);
+        transition: transform 0.3s, box-shadow 0.3s;
+        opacity: 0;
+        animation: cardFadeIn 0.9s forwards;
+    }
+    .testimonials .card:hover {
+        transform: scale(1.04) translateY(-8px);
+        box-shadow: 0 16px 32px rgba(0,0,0,0.13);
+    }
+    @keyframes cardFadeIn {
+        to { opacity: 1; }
+    }
+    .carousel-control-prev-icon, .carousel-control-next-icon {
+        background-color: #2c3e50;
+        border-radius: 50%;
+        transition: background 0.3s, transform 0.2s;
+    }
+    .carousel-control-prev-icon:hover, .carousel-control-next-icon:hover {
+        background-color: #fbc2eb;
+        transform: scale(1.15);
+    }
+    .modal-content {
+        border-radius: 18px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.13);
+        background: rgba(255,255,255,0.98);
+        animation: modalFadeIn 0.7s;
+    }
+    @keyframes modalFadeIn {
+        from { opacity: 0; transform: scale(0.97); }
+        to { opacity: 1; transform: scale(1); }
+    }
+    .btn-primary {
+        background: linear-gradient(90deg, #a6c1ee 0%, #fbc2eb 100%);
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
+    }
+    .btn-primary:hover {
+        filter: brightness(1.1);
+        transform: scale(1.07);
+        box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+    }
+    .star-rating label {
+        color: #fbc2eb;
+        transition: color 0.2s, transform 0.2s;
+    }
+    .star-rating label:hover, .star-rating input:checked ~ label {
+        color: #ffd700;
+        transform: scale(1.2);
+    }
 </style>
 
 <script>

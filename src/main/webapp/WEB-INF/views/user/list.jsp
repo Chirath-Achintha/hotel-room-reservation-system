@@ -2,6 +2,124 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:include page="../fragments/header.jsp"/>
 
+<style>
+    body {
+        background: linear-gradient(120deg, #fbc2eb 0%, #a6c1ee 100%);
+        font-family: 'Segoe UI', Arial, sans-serif;
+        animation: fadeInBg 1.2s ease;
+    }
+    @keyframes fadeInBg {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    .container {
+        animation: slideIn 1s cubic-bezier(.68,-0.55,.27,1.55);
+    }
+    @keyframes slideIn {
+        from { transform: translateY(40px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+    .card {
+        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        border-radius: 18px;
+        transition: transform 0.3s, box-shadow 0.3s;
+        background: #fff;
+        margin-bottom: 24px;
+        opacity: 0;
+        animation: cardFadeIn 0.8s forwards;
+    }
+    .card-header {
+        border-radius: 18px 18px 0 0;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        font-size: 1.2rem;
+        background: linear-gradient(90deg, #fbc2eb 0%, #a6c1ee 100%) !important;
+        color: #fff !important;
+    }
+    @keyframes cardFadeIn {
+        to { opacity: 1; }
+    }
+    table {
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        overflow: hidden;
+        animation: tableFadeIn 1s;
+    }
+    @keyframes tableFadeIn {
+        from { opacity: 0; transform: scale(0.97); }
+        to { opacity: 1; transform: scale(1); }
+    }
+    th, td {
+        padding: 14px 18px;
+        text-align: center;
+        vertical-align: middle;
+    }
+    th {
+        background: linear-gradient(90deg, #fbc2eb 0%, #a6c1ee 100%);
+        color: #fff;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        border: none;
+    }
+    tr {
+        transition: background 0.3s, transform 0.2s;
+    }
+    tr:hover {
+        background: #e0c3fc;
+        transform: scale(1.01);
+    }
+    .btn {
+        transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
+        border-radius: 8px;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    }
+    .btn-warning {
+        background: linear-gradient(90deg, #f7971e 0%, #ffd200 100%);
+        color: #fff;
+        border: none;
+    }
+    .btn-warning:hover {
+        filter: brightness(1.1);
+        transform: scale(1.07);
+        box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+    }
+    .btn-success {
+        background: linear-gradient(90deg, #43cea2 0%, #185a9d 100%);
+        color: #fff;
+        border: none;
+    }
+    .btn-success:hover {
+        filter: brightness(1.1);
+        transform: scale(1.07);
+        box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+    }
+    .btn-danger {
+        background: linear-gradient(90deg, #ff5858 0%, #f09819 100%);
+        color: #fff;
+        border: none;
+    }
+    .btn-danger:hover {
+        filter: brightness(1.1);
+        transform: scale(1.07);
+        box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+    }
+    .btn-secondary {
+        background: #b3c6e0;
+        color: #333;
+        border: none;
+    }
+    .btn-secondary:hover {
+        background: #a1c4fd;
+        color: #222;
+    }
+    h3 {
+        color: #333;
+        letter-spacing: 0.5px;
+    }
+</style>
+
 <div class="container mt-5">
     <div class="row">
         <div class="col-12">

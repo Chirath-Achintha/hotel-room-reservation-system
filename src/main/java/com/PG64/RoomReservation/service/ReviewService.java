@@ -190,41 +190,71 @@ public class ReviewService {
     }
 
     private Review parseReviewFromString(String str) {
-        String[] parts = str.split(",");
-        int reviewId = Integer.parseInt(parts[0]);
-        int userId = Integer.parseInt(parts[1]);
-        int rating = Integer.parseInt(parts[2]);
-        String comment = parts[3];
-        LocalDate reviewDate = LocalDate.parse(parts[4]);
-        String status = parts[5];
-        String type = parts[6];
+        // Handle both comma and pipe delimiters
+        String[] parts = str.contains(",") ? str.split(",") : str.split("\\|");
+        
+        try {
+            // For legacy format with just basic fields
+            if (parts.length <= 3) {
+                int reviewId = generateReviewId();
+                String userId = parts[0];
+                int rating = Integer.parseInt(parts[1]);
+                String comment = parts[2];
+                
+                // Create a basic room review
+                return new RoomReview(
+                    reviewId,
+                    1, // default user ID
+                    1, // default room ID
+                    rating,
+                    comment,
+                    LocalDate.now(),
+                    "PENDING",
+                    "Good", // default cleanliness
+                    "Good", // default comfort
+                    "Good"  // default location
+                );
+            }
+            
+            // For full format
+            int reviewId = Integer.parseInt(parts[0]);
+            int userId = Integer.parseInt(parts[1]);
+            int rating = Integer.parseInt(parts[2]);
+            String comment = parts[3];
+            LocalDate reviewDate = LocalDate.parse(parts[4]);
+            String status = parts[5];
+            String type = parts[6];
 
-        if ("ROOM".equals(type)) {
-            return new RoomReview(
-                    reviewId,
-                    userId,
-                    Integer.parseInt(parts[8]), // roomId
-                    rating,
-                    comment,
-                    reviewDate,
-                    status,
-                    parts[9],  // cleanliness
-                    parts[10], // comfort
-                    parts[11]  // location
-            );
-        } else {
-            return new ServiceReview(
-                    reviewId,
-                    userId,
-                    Integer.parseInt(parts[8]), // serviceId
-                    rating,
-                    comment,
-                    reviewDate,
-                    status,
-                    parts[9],  // staffBehavior
-                    parts[10], // serviceQuality
-                    parts[11]  // valueForMoney
-            );
+            if ("ROOM".equals(type)) {
+                return new RoomReview(
+                        reviewId,
+                        userId,
+                        Integer.parseInt(parts[8]), // roomId
+                        rating,
+                        comment,
+                        reviewDate,
+                        status,
+                        parts[9],  // cleanliness
+                        parts[10], // comfort
+                        parts[11]  // location
+                );
+            } else {
+                return new ServiceReview(
+                        reviewId,
+                        userId,
+                        Integer.parseInt(parts[8]), // serviceId
+                        rating,
+                        comment,
+                        reviewDate,
+                        status,
+                        parts[9],  // staffBehavior
+                        parts[10], // serviceQuality
+                        parts[11]  // valueForMoney
+                );
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 

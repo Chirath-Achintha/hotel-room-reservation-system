@@ -89,15 +89,14 @@ public class BookingController {
 
     // List user's bookings
     @GetMapping("/list")
-    public String listBookings(Model model) {
-        // Get current user (in a real app, get from session)
-        User currentUser = userService.getCurrentUser();
-
+    public String listBookings(Model model, HttpSession session) {
+        User currentUser = userService.getCurrentUser(session);
+        if (currentUser == null) {
+            return "redirect:/auth/login";
+        }
         List<Booking> bookings = bookingService.getBookingsByUsername(currentUser.getUsername());
-
         // Sort bookings by check-in date using QuickSort
         quickSort.sortByDate(bookings);
-
         model.addAttribute("bookings", bookings);
         return "booking/list";
     }
@@ -113,9 +112,14 @@ public class BookingController {
 
     // Cancel booking
     @PostMapping("/cancel/{bookingId}")
-    public String cancelBooking(@PathVariable String bookingId) {
+    public String cancelBooking(@PathVariable String bookingId, HttpSession session) {
         bookingService.deleteBooking(bookingId);
-        return "redirect:/booking/manage";
+        User currentUser = userService.getCurrentUser(session);
+        if (currentUser instanceof com.PG64.RoomReservation.model.AdminUser) {
+            return "redirect:/booking/manage";
+        } else {
+            return "redirect:/booking/list";
+        }
     }
 
     // Admin & user: Edit booking

@@ -5,14 +5,87 @@
 <head>
     <title>Edit Booking</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; }
-        input, select, textarea { width: 100%; padding: 8px; margin-bottom: 10px; }
-        .btn { padding: 10px 20px; color: white; border: none; cursor: pointer; }
-        .btn-save { background: #4CAF50; }
-        .btn-cancel { background: #f44336; }
-        .error { color: red; margin-bottom: 10px; }
+        body {
+            min-height: 100vh;
+            background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            animation: fadeInBg 1.2s ease;
+        }
+        @keyframes fadeInBg {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .booking-container {
+            max-width: 500px;
+            margin: 60px auto;
+            padding: 36px 32px 28px 32px;
+            border-radius: 18px;
+            background: rgba(255,255,255,0.92);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.13);
+            backdrop-filter: blur(6px);
+            border: 1.5px solid rgba(255,255,255,0.25);
+            animation: slideIn 1s cubic-bezier(.68,-0.55,.27,1.55);
+        }
+        @keyframes slideIn {
+            from { transform: translateY(40px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        h1 {
+            text-align: center;
+            color: #3498db;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+        }
+        .form-group label {
+            color: #4a5568;
+            font-weight: 500;
+        }
+        input, select, textarea {
+            border-radius: 8px;
+            border: 1px solid #b3c6e0;
+            transition: border 0.3s, box-shadow 0.3s;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: #a1c4fd;
+            box-shadow: 0 0 0 2px #a1c4fd55;
+        }
+        .btn {
+            border-radius: 8px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
+        }
+        .btn-save {
+            background: linear-gradient(90deg, #43cea2 0%, #185a9d 100%);
+            color: #fff;
+            border: none;
+        }
+        .btn-save:hover {
+            filter: brightness(1.1);
+            transform: scale(1.07);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+        }
+        .btn-cancel {
+            background: linear-gradient(90deg, #ff5858 0%, #f09819 100%);
+            color: #fff;
+            border: none;
+        }
+        .btn-cancel:hover {
+            filter: brightness(1.1);
+            transform: scale(1.07);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+        }
+        .error {
+            color: #e74c3c;
+            margin-bottom: 10px;
+            animation: fadeInAlert 0.7s;
+        }
+        @keyframes fadeInAlert {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
     </style>
 </head>
 <body>

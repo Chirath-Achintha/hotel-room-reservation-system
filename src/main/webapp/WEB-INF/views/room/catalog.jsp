@@ -3,237 +3,131 @@
 <jsp:include page="../fragments/header.jsp"/>
 
 <style>
-    :root {
-        --primary-color: #2c3e50;
-        --secondary-color: #3498db;
-        --accent-color: #e74c3c;
-        --deluxe-color: #f39c12;
-        --standard-color: #3498db;
+    body {
+        min-height: 100vh;
+        background: linear-gradient(120deg, #fbc2eb 0%, #a6c1ee 100%);
+        font-family: 'Segoe UI', Arial, sans-serif;
+        animation: fadeInBg 1.2s ease;
     }
-
-    .room-card {
-        transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-        border: none;
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        transform: translateY(0);
-        position: relative;
+    @keyframes fadeInBg {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    .container {
+        animation: slideIn 1s cubic-bezier(.68,-0.55,.27,1.55);
+    }
+    @keyframes slideIn {
+        from { transform: translateY(40px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+    h1 {
+        color: #764ba2;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+    .card {
+        border-radius: 18px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.10);
         background: rgba(255,255,255,0.95);
-        backdrop-filter: blur(5px);
+        transition: transform 0.3s, box-shadow 0.3s;
+        opacity: 0;
+        animation: cardFadeIn 0.9s forwards;
     }
-
-    .room-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    .card:hover {
+        transform: scale(1.04) translateY(-8px);
+        box-shadow: 0 16px 32px rgba(0,0,0,0.13);
     }
-
-    .room-card .card-header {
-        border-radius: 12px 12px 0 0 !important;
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
+    @keyframes cardFadeIn {
+        to { opacity: 1; }
     }
-
-    .room-card .card-header::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 3px;
-        background: linear-gradient(90deg, rgba(255,255,255,0.3), transparent);
-        animation: shimmer 2s infinite linear;
-    }
-
-    .room-card .bg-warning {
-        background: linear-gradient(135deg, var(--deluxe-color), #e67e22) !important;
-    }
-
-    .room-card .bg-info {
-        background: linear-gradient(135deg, var(--standard-color), #2980b9) !important;
-    }
-
-    .room-card .card-body {
-        padding: 1.5rem;
-    }
-
-    .badge {
-        font-weight: 500;
-        padding: 0.35em 0.65em;
-        border-radius: 50rem;
-        transition: all 0.3s ease;
-    }
-
-    .badge.bg-success {
-        background: linear-gradient(135deg, #2ecc71, #27ae60) !important;
-    }
-
-    .badge.bg-danger {
-        background: linear-gradient(135deg, #e74c3c, #c0392b) !important;
-    }
-
-    .features ul {
-        padding-left: 0;
-    }
-
-    .features li {
-        margin-bottom: 0.5rem;
-        position: relative;
-        padding-left: 1.75rem;
-        transition: all 0.3s ease;
-    }
-
-    .features li:hover {
-        transform: translateX(5px);
-    }
-
-    .features li i {
-        position: absolute;
-        left: 0;
-        top: 0.25rem;
-    }
-
-    .btn {
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-        border: none;
-        font-weight: 500;
-        letter-spacing: 0.5px;
-    }
-
-    .btn::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-        transition: all 0.6s ease;
-    }
-
-    .btn:hover::after {
-        left: 100%;
-    }
-
-    .btn-primary {
-        background: linear-gradient(135deg, var(--secondary-color), #2980b9);
-        box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
-    }
-
-    .btn-primary:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
-    }
-
-    .btn-info {
-        background: linear-gradient(135deg, #1abc9c, #16a085);
-        box-shadow: 0 4px 15px rgba(26, 188, 156, 0.3);
-    }
-
-    .btn-info:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 25px rgba(26, 188, 156, 0.4);
-    }
-
-    .btn-warning {
-        background: linear-gradient(135deg, var(--deluxe-color), #e67e22);
-        box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
-    }
-
-    .btn-warning:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 25px rgba(243, 156, 18, 0.4);
-    }
-
-    .btn-danger {
-        background: linear-gradient(135deg, var(--accent-color), #c0392b);
-        box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
-    }
-
-    .btn-danger:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
-    }
-
-    .manage-btn {
-        transition: all 0.3s ease;
-        padding: 0.75rem 1.5rem;
-        border-radius: 50rem;
+    .card-header {
+        border-radius: 18px 18px 0 0;
         font-weight: 600;
+        letter-spacing: 0.5px;
+        font-size: 1.1rem;
     }
-
-    .manage-btn:hover {
-        transform: translateY(-3px) scale(1.05);
+    .btn, .btn-primary, .btn-info, .btn-warning, .btn-danger {
+        border-radius: 8px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
     }
-
-    @keyframes shimmer {
-        0% { transform: translateX(-100%); }
-        100% { transform: translateX(100%); }
+    .btn-primary {
+        background: linear-gradient(90deg, #a6c1ee 0%, #fbc2eb 100%);
+        border: none;
     }
-
-    .page-title {
-        position: relative;
-        display: inline-block;
-        margin-bottom: 2rem;
+    .btn-info {
+        background: linear-gradient(90deg, #66a6ff 0%, #89f7fe 100%);
+        color: #fff;
+        border: none;
     }
-
-    .page-title::after {
-        content: '';
-        position: absolute;
-        bottom: -10px;
-        left: 0;
-        width: 100%;
-        height: 4px;
-        background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
-        border-radius: 2px;
-        transform: scaleX(0.8);
-        transform-origin: left;
-        animation: titleUnderline 1s ease-out forwards;
+    .btn-warning {
+        background: linear-gradient(90deg, #f7971e 0%, #ffd200 100%);
+        color: #fff;
+        border: none;
     }
-
-    @keyframes titleUnderline {
-        from { transform: scaleX(0); }
-        to { transform: scaleX(0.8); }
+    .btn-danger {
+        background: linear-gradient(90deg, #ff5858 0%, #f09819 100%);
+        color: #fff;
+        border: none;
     }
-
-    .card-title {
-        position: relative;
-        padding-bottom: 0.5rem;
+    .btn:hover {
+        filter: brightness(1.1);
+        transform: scale(1.07);
+        box-shadow: 0 4px 16px rgba(0,0,0,0.13);
     }
-
-    .card-title::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 50px;
-        height: 2px;
-        background: rgba(255,255,255,0.5);
-        border-radius: 1px;
+    .badge {
+        font-size: 1em;
+        padding: 0.5em 1em;
+        border-radius: 8px;
+        animation: badgePop 0.7s;
+    }
+    @keyframes badgePop {
+        from { transform: scale(0.7); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+    }
+    .executive-header {
+        background: linear-gradient(90deg, #667eea 0%, #764ba2 100%) !important;
+    }
+    .presidential-header {
+        background: linear-gradient(90deg, #b8cbb8 0%, #b8cbb8 0%, #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%) !important;
+    }
+    .feature-icon {
+        margin-right: 8px;
+        color: #4CAF50;
+    }
+    .price-tag {
+        font-size: 1.5em;
+        font-weight: bold;
+        color: #764ba2;
     }
 </style>
 
 <div class="container mt-5">
-    <h1 class="mb-4 page-title">Room Catalog</h1>
+    <h1 class="mb-4">Room Catalog</h1>
 
     <div class="row row-cols-1 row-cols-md-3 g-4">
         <c:forEach var="room" items="${rooms}">
             <div class="col">
-                <div class="card h-100 room-card">
-                    <div class="card-header ${room['class'].simpleName == 'DeluxeRoom' ? 'bg-warning' : 'bg-info'} text-white">
+                <div class="card h-100">
+                    <div class="card-header text-white
+                        ${room['class'].simpleName == 'DeluxeRoom' ? 'bg-warning' : 
+                          room['class'].simpleName == 'ExecutiveSuite' ? 'executive-header' :
+                          room['class'].simpleName == 'PresidentialSuite' ? 'presidential-header' : 'bg-info'}">
                         <h5 class="card-title mb-0">
-                            Room ${room.roomNumber} (${room['class'].simpleName == 'DeluxeRoom' ? 'DELUXE' : 'STANDARD'})
+                            Room ${room.roomNumber} 
+                            (${room['class'].simpleName == 'DeluxeRoom' ? 'DELUXE' : 
+                               room['class'].simpleName == 'ExecutiveSuite' ? 'EXECUTIVE SUITE' :
+                               room['class'].simpleName == 'PresidentialSuite' ? 'PRESIDENTIAL SUITE' : 'STANDARD'})
                         </h5>
                     </div>
                     <div class="card-body">
                         <p class="card-text">
-                            <strong>Price:</strong> $${room.price}<br>
-                            <strong>Status:</strong>
+                            <span class="price-tag">$${room.price}</span> per night<br>
+                            <strong>Status:</strong> 
                             <span class="badge ${room.available ? 'bg-success' : 'bg-danger'}">
-                                    ${room.available ? 'Available' : 'Occupied'}
+                                ${room.available ? 'Available' : 'Occupied'}
                             </span>
                         </p>
 
@@ -242,21 +136,50 @@
                             <c:choose>
                                 <c:when test="${room['class'].simpleName == 'DeluxeRoom'}">
                                     <ul class="list-unstyled">
-                                        <li><i class="bi bi-check-circle-fill text-success"></i>
-                                                ${room.hasJacuzzi() ? 'Jacuzzi Available' : 'No Jacuzzi'}
+                                        <li><i class="bi bi-check-circle-fill feature-icon"></i> 
+                                            ${room.hasJacuzzi() ? 'Jacuzzi Available' : 'No Jacuzzi'}
                                         </li>
-                                        <li><i class="bi bi-check-circle-fill text-success"></i>
-                                                ${room.hasMinibar() ? 'Minibar Available' : 'No Minibar'}
+                                        <li><i class="bi bi-check-circle-fill feature-icon"></i> 
+                                            ${room.hasMinibar() ? 'Minibar Available' : 'No Minibar'}
+                                        </li>
+                                    </ul>
+                                </c:when>
+                                <c:when test="${room['class'].simpleName == 'ExecutiveSuite'}">
+                                    <ul class="list-unstyled">
+                                        <li><i class="bi bi-check-circle-fill feature-icon"></i> 
+                                            ${room.isHasSeparateLivingRoom() ? 'Separate Living Room' : 'Open Plan Layout'}
+                                        </li>
+                                        <li><i class="bi bi-check-circle-fill feature-icon"></i> 
+                                            ${room.isHasWorkspace() ? 'Dedicated Workspace' : 'No Workspace'}
+                                        </li>
+                                        <li><i class="bi bi-check-circle-fill feature-icon"></i> 
+                                            ${room.isHasKitchenette() ? 'Kitchenette Available' : 'No Kitchenette'}
+                                        </li>
+                                    </ul>
+                                </c:when>
+                                <c:when test="${room['class'].simpleName == 'PresidentialSuite'}">
+                                    <ul class="list-unstyled">
+                                        <li><i class="bi bi-check-circle-fill feature-icon"></i> 
+                                            ${room.isHasPrivatePool() ? 'Private Pool' : 'Shared Pool Access'}
+                                        </li>
+                                        <li><i class="bi bi-check-circle-fill feature-icon"></i> 
+                                            ${room.isHasButlerService() ? '24/7 Butler Service' : 'Room Service Available'}
+                                        </li>
+                                        <li><i class="bi bi-check-circle-fill feature-icon"></i> 
+                                            ${room.isHasPanoramicView() ? 'Panoramic City View' : 'City View'}
+                                        </li>
+                                        <li><i class="bi bi-check-circle-fill feature-icon"></i> 
+                                            ${room.isHasPrivateDining() ? 'Private Dining Room' : 'In-Room Dining Available'}
                                         </li>
                                     </ul>
                                 </c:when>
                                 <c:otherwise>
                                     <ul class="list-unstyled">
-                                        <li><i class="bi bi-check-circle-fill text-success"></i>
-                                                ${room.numberOfBeds} Beds
+                                        <li><i class="bi bi-check-circle-fill feature-icon"></i> 
+                                            ${room.numberOfBeds} Beds
                                         </li>
-                                        <li><i class="bi bi-check-circle-fill text-success"></i>
-                                                ${room.hasBalcony() ? 'Balcony Available' : 'No Balcony'}
+                                        <li><i class="bi bi-check-circle-fill feature-icon"></i> 
+                                            ${room.hasBalcony() ? 'Balcony Available' : 'No Balcony'}
                                         </li>
                                     </ul>
                                 </c:otherwise>
@@ -265,14 +188,14 @@
 
                         <div class="mt-3">
                             <c:if test="${room.available}">
-                                <a href="${pageContext.request.contextPath}/booking/create/${room.roomId}"
+                                <a href="${pageContext.request.contextPath}/booking/create/${room.roomId}" 
                                    class="btn btn-primary">Book Now</a>
                             </c:if>
                             <a href="${pageContext.request.contextPath}/review/room/list/${room.roomId}" class="btn btn-info ms-2">View Reviews</a>
                             <c:if test="${sessionScope.user['class'].simpleName == 'AdminUser'}">
-                                <a href="${pageContext.request.contextPath}/room/manage"
+                                <a href="${pageContext.request.contextPath}/room/manage" 
                                    class="btn btn-warning">Edit</a>
-                                <form action="${pageContext.request.contextPath}/room/delete/${room.roomId}"
+                                <form action="${pageContext.request.contextPath}/room/delete/${room.roomId}" 
                                       method="post" style="display: inline;"
                                       onsubmit="return confirm('Are you sure you want to delete this room?');">
                                     <button type="submit" class="btn btn-danger">Delete</button>
@@ -286,52 +209,12 @@
     </div>
 
     <c:if test="${sessionScope.user['class'].simpleName == 'AdminUser'}">
-        <div class="mt-4 text-center">
-            <a href="${pageContext.request.contextPath}/room/manage" class="btn btn-primary manage-btn">
+        <div class="mt-4">
+            <a href="${pageContext.request.contextPath}/room/manage" class="btn btn-primary">
                 <i class="bi bi-gear-fill"></i> Manage Rooms
             </a>
         </div>
     </c:if>
 </div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Animate cards on scroll
-        const animateOnScroll = function() {
-            const cards = document.querySelectorAll('.room-card');
-            cards.forEach((card, index) => {
-                const cardPosition = card.getBoundingClientRect().top;
-                const screenPosition = window.innerHeight / 1.3;
-
-                if (cardPosition < screenPosition) {
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                    card.style.transitionDelay = `${index * 0.1}s`;
-                }
-            });
-        };
-
-        // Set initial state for animation
-        document.querySelectorAll('.room-card').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'all 0.6s ease';
-        });
-
-        window.addEventListener('scroll', animateOnScroll);
-        animateOnScroll(); // Run once on load
-
-        // Button hover effects
-        const buttons = document.querySelectorAll('.btn');
-        buttons.forEach(button => {
-            button.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-3px)';
-            });
-            button.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0)';
-            });
-        });
-    });
-</script>
 
 <jsp:include page="../fragments/footer.jsp"/>
