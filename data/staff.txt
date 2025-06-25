@@ -1,1 +1,1 @@
-3,staff1,djrm34@proton.com,MAINTENANCE,any,0774167220,true
+1,staff1,teststaff@gmail.com,MANAGER,roomservice,0123343234,true
